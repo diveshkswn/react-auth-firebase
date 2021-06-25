@@ -1,0 +1,10 @@
+.footer_main{
+    color: rgb(214, 223, 231);
+    text-shadow: 0px 2px 32px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(143, 55, 226);
+    height: 60px;
+    width: 100vw;
+}

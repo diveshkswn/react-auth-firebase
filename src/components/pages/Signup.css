@@ -1,0 +1,47 @@
+.signup_main{
+
+    min-height: 60vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.card{
+    width: 60%;
+}
+
+
+.form{
+    width: 80% !important;
+}
+
+.login_banner{
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.card-body{
+    display: flex ;
+    flex-direction: column ;
+    align-items: stretch ;
+
+}
+
+@media(max-width : 800px){
+    .signup_main{
+        width: 95vw;
+    }
+
+    .card{
+        width: 90%;
+    }
+
+    .login_banner{
+        width: 80%;
+    }
+    
+}

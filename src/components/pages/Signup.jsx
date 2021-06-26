@@ -1,23 +1,58 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './Signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { signup } from '../../context/AuthContext';
 
 function Signup() {
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const emailRef = useRef();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (passwordConfirmRef.current.value !== passwordRef.current.value) {
+      setError('Passwords not match');
+    } else {
+      try {
+        setError('');
+        setLoading(true);
+
+        await signup(emailRef.current.value, passwordRef.current.value);
+        // window.location.href = '/';
+        history.push('/login');
+      } catch (er) {
+        setError(er.message);
+      }
+      setLoading(false);
+    }
+  }
+
   return (
 
     <div className="signup_main">
       <div className="card">
         <div className="card-body">
           <h2 className="mb-5 ms-auto me-auto">Sign Up</h2>
-          <form>
+
+          {/* Error banner */}
+          {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+          )}
+
+          <form onSubmit={handleSubmit}>
             <label>Email</label>
-            <input type="email" className="form-control mt-3 mb-3" />
+            <input ref={emailRef} type="email" className="form-control mt-3 mb-3" />
             <label>Password</label>
-            <input type="password" className="form-control mt-3 mb-3" />
+            <input ref={passwordRef} type="password" className="form-control mt-3 mb-3" />
             <label>Password Confirm</label>
-            <input type="password" className="form-control mt-3 mb-3" />
-            <button type="button" className="btn btn-primary">SignUp</button>
+            <input ref={passwordConfirmRef} type="password" className="form-control mt-3 mb-3" />
+            <button type="submit" disabled={loading} className="btn btn-primary">SignUp</button>
           </form>
         </div>
 

@@ -4,7 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(143, 55, 226);
+    background-color: #4F518C;
     height: 60px;
     width: 100vw;
 }
+
+h5>a{
+    color: rgb(214, 223, 231);
+    text-underline-offset: unset;
+}
+

@@ -1,24 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useState } from 'react';
-import './Login.css';
-import { Link, useHistory } from 'react-router-dom';
-import { login } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
+import './ForgotPassword.css';
+import { resetPassword } from '../../context/AuthContext';
 
-function Login() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const [error, setError] = useState('');
+function ForgotPassword() {
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const emailRef = useRef();
+
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      setError('');
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      // window.location.href = '/';
-      history.push('/');
+      await resetPassword(emailRef.current.value);
+      setSuccess(true);
     } catch (er) {
       setError(er.message);
     }
@@ -26,10 +23,10 @@ function Login() {
   }
 
   return (
-    <div className="login_main">
+    <div className="forgot_main">
       <div className="card">
         <div className="card-body">
-          <h2 className="mb-5 ms-auto me-auto">Login</h2>
+          <h2 className="mb-5 ms-auto me-auto">Forgot Password</h2>
           {/* Error banner */}
           {error && (
           <div className="alert alert-danger" role="alert">
@@ -39,21 +36,25 @@ function Login() {
           <form onSubmit={handleSubmit}>
             <label>Email</label>
             <input ref={emailRef} type="email" className="form-control mt-3 mb-3" />
-            <label>Password</label>
-            <input ref={passwordRef} type="password" className="form-control mt-3 mb-3" />
-            <button type="submit" disabled={loading} className="btn btn-primary">Login</button>
+            <button type="submit" disabled={loading} className="btn btn-primary">Reset Password</button>
           </form>
+          {/* Error banner */}
+          {success && (
+          <div className="alert alert-success" role="alert">
+            Password reset link send to you email.
+          </div>
+          )}
         </div>
 
       </div>
       <div className="login_banner">
         <h5> New User ? </h5>
         <Link to="/signup">Sign Up</Link>
-        <Link to="/forgot-password">Forgot Password</Link>
+        <Link to="/login">Login</Link>
       </div>
 
     </div>
   );
 }
 
-export default Login;
+export default ForgotPassword;

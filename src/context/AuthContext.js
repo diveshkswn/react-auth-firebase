@@ -18,9 +18,27 @@ function login(email, password) {
   return auth.signInWithEmailAndPassword(email, password);
 }
 
+function logout() {
+  return auth.signOut();
+}
+
+function resetPassword(email) {
+  return auth.sendPasswordResetEmail(email);
+}
+
+// Not working
+function updateUser(user) {
+  return auth.updateCurrentUser(user);
+}
+
+// function updatePassword(password) {
+//   return currentUser.updatePassword(password);
+// }
+
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -37,5 +55,7 @@ function AuthProvider({ children }) {
   );
 }
 
-export { useAuth, signup, login };
+export {
+  useAuth, signup, login, logout, resetPassword, updateUser,
+};
 export default AuthProvider;

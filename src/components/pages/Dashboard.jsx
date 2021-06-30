@@ -21,7 +21,7 @@ function Dashboard() {
       setError('Failed to logout. Please try again');
     }
   }
-
+  console.log(currentUser);
   return (
     <>
       <div className="dashboard_main">
@@ -44,7 +44,7 @@ function Dashboard() {
               <p>
                 <strong>  Name :</strong>
                 {' '}
-                {currentUser && currentUser.name}
+                {currentUser && currentUser.displayName}
               </p>
 
               <Link className="btn btn-dark" to="/update-user">Update user</Link>

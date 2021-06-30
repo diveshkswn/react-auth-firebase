@@ -28,7 +28,7 @@ function resetPassword(email) {
 
 // Not working
 function updateUser(user) {
-  return auth.updateCurrentUser(user);
+  return auth.currentUser.updateProfile(user);
 }
 
 // function updatePassword(password) {
@@ -42,6 +42,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+
       setLoading(false);
     });
     return unsubscribe;

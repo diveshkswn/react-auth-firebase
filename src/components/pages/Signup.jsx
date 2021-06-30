@@ -8,6 +8,7 @@ function Signup() {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const emailRef = useRef();
+  const nameRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -21,7 +22,9 @@ function Signup() {
         setError('');
         setLoading(true);
 
-        await signup(emailRef.current.value, passwordRef.current.value);
+        const a = await signup(emailRef.current.value, passwordRef.current.value);
+        await a.user.updateProfile({ displayName: nameRef.current.value });
+        // await a.user.updateProfile({ displayName: nameRef.current.value, photoURL: 'https://example.com/jane-q-user/profile.jpg' });
         // window.location.href = '/';
         history.push('/login');
       } catch (er) {
@@ -48,6 +51,8 @@ function Signup() {
           <form onSubmit={handleSubmit}>
             <label>Email</label>
             <input ref={emailRef} type="email" className="form-control mt-3 mb-3" />
+            <label>Name</label>
+            <input ref={nameRef} type="text" className="form-control mt-3 mb-3" />
             <label>Password</label>
             <input ref={passwordRef} type="password" className="form-control mt-3 mb-3" />
             <label>Password Confirm</label>

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth, updateUser } from '../../context/AuthContext';
 import './UpdateProfile.css';
 
@@ -31,7 +31,7 @@ function UpdateProfile() {
         setError('');
         setLoading(true);
         // currentUser.name = nameRef.current.value;
-        // await updateUser(currentUser);
+        await updateUser({ displayName: nameRef.current.value });
         // await login(emailRef.current.value, passwordRef.current.value);
         // window.location.href = '/';
         history.push('/');
@@ -56,8 +56,8 @@ function UpdateProfile() {
           <form onSubmit={handleSubmit}>
             <label>Name</label>
             <input type="email" defaultValue={currentUser.email} disabled className="form-control mt-3 mb-3" />
-            {/* <label>Name</label>
-            <input ref={nameRef} defaultValue={currentUser && currentUser.name} type="name" className="form-control mt-3 mb-3" /> */}
+            <label>Name</label>
+            <input ref={nameRef} defaultValue={currentUser && currentUser.displayName} type="name" className="form-control mt-3 mb-3" />
             <label>Password</label>
             <input ref={passwordRef} type="password" placeholder="Leave Empty for no change in password" className="form-control mt-3 mb-3" />
             <label>Confirm Password</label>
